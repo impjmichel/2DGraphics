@@ -7,22 +7,22 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class PE2 extends JFrame
+public class PE1 extends JFrame
 {
 	private static final long serialVersionUID = 6238579104479982161L;
 
 	public static void main(String arg[]) 
 	{
-	    JFrame frame = new PE2();
+	    JFrame frame = new PE1();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    frame.setSize(new Dimension(400,400));
 	    frame.pack();
 	    frame.setVisible(true);
 	  }
 	
-	public PE2()
+	public PE1()
 	{
-		super("Programming Exercise 2.2");
+		super("Programming Exercise 2.1");
 		JPanel panel = new DrawStuff();
 		panel.setPreferredSize(new Dimension(400,400));
 		add(panel);
@@ -49,9 +49,8 @@ public class PE2 extends JFrame
 			 int y2;
 			 for (int i = 0; i < nPoints; i++) 
 			 {
-				 double t = i * Math.PI / 90;
-				 x2 = (int) ((int) 20*t*Math.cos(t));
-				 y2 = (int) ((int) 20*t*Math.sin(t));
+				 x2 = (int)Math.pow(i, 3);
+				 y2 = (int)Math.pow(i, 2);
 				 g2.drawLine(x1, y1, x2, y2);
 				 x1 = x2;
 				 y1 = y2;
