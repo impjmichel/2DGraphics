@@ -43,12 +43,21 @@ public class PE4 extends JFrame
 		 {
 			 super.paintComponent(g);
 			 Graphics2D g2 = (Graphics2D)g;
-//			 g2.translate(200,200);
-			 
-			 Rectangle2D.Double rect = new Rectangle2D.Double(0,0,100,100);
-			 rect.setRect(-rect.width/2, -rect.height/2, rect.width, rect.height);
-			 g2.rotate(Math.PI/4);
-			 g2.draw(rect);
+			 g2.translate(20,20);
+			 boolean black = false;
+			 for(int row = 0; row < 8; row++)
+			 {
+				 for(int column = 0; column < 8; column++)
+				 {
+					 Rectangle2D.Double rect = new Rectangle2D.Double(column*40,row*40,40,40);
+					 if(black)
+						 g2.fill(rect);
+					 else
+						 g2.draw(rect);
+					 black = !black;
+				 }
+				 black = !black;
+			 }
 		 }
 	}
 }

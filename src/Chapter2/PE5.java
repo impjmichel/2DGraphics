@@ -3,26 +3,28 @@ package Chapter2;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class PE1 extends JFrame
+public class PE5 extends JFrame
 {
 	private static final long serialVersionUID = 6238579104479982161L;
 
 	public static void main(String arg[]) 
 	{
-	    JFrame frame = new PE1();
+	    JFrame frame = new PE5();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    frame.setSize(new Dimension(400,400));
 	    frame.pack();
 	    frame.setVisible(true);
 	  }
 	
-	public PE1()
+	public PE5()
 	{
-		super("Programming Exercise 2.1");
+		super("Programming Exercise 2.5");
 		JPanel panel = new DrawStuff();
 		panel.setPreferredSize(new Dimension(400,400));
 		add(panel);
@@ -42,19 +44,16 @@ public class PE1 extends JFrame
 		 {
 			 super.paintComponent(g);
 			 Graphics2D g2 = (Graphics2D)g;
-			 g2.translate(200,200);
-			 int x1 = 0;
-			 int y1 = 0;
-			 int x2;
-			 int y2;
-			 for (int i = 0; i < nPoints; i++) 
-			 {
-				 x2 = (int)Math.pow(i, 2);
-				 y2 = (int)Math.pow(i, 3);
-				 g2.drawLine(x1, y1, x2, y2);
-				 x1 = x2;
-				 y1 = y2;
-			 }
+			 g2.translate(100,100);
+			 Ellipse2D.Double e1 = new Ellipse2D.Double(0, 0, 200, 100);
+			 Ellipse2D.Double e2 = new Ellipse2D.Double(50, 0, 200, 100);
+			 Ellipse2D.Double e3 = new Ellipse2D.Double(0, 0, 200, 100);
+			 Area a1 = new Area(e1);
+			 Area a2 = new Area(e2);
+			 Area a3 = new Area(e3);
+			 a3.intersect(a2);
+			 a1.exclusiveOr(a3);
+			 g2.fill(a1);
 		 }
 	}
 }

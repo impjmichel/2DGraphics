@@ -3,26 +3,28 @@ package Chapter2;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Arc2D;
+import java.awt.geom.GeneralPath;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class PE1 extends JFrame
+public class PE6 extends JFrame
 {
 	private static final long serialVersionUID = 6238579104479982161L;
 
 	public static void main(String arg[]) 
 	{
-	    JFrame frame = new PE1();
+	    JFrame frame = new PE6();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 	    frame.setSize(new Dimension(400,400));
 	    frame.pack();
 	    frame.setVisible(true);
 	  }
 	
-	public PE1()
+	public PE6()
 	{
-		super("Programming Exercise 2.1");
+		super("Programming Exercise 2.6");
 		JPanel panel = new DrawStuff();
 		panel.setPreferredSize(new Dimension(400,400));
 		add(panel);
@@ -42,19 +44,14 @@ public class PE1 extends JFrame
 		 {
 			 super.paintComponent(g);
 			 Graphics2D g2 = (Graphics2D)g;
-			 g2.translate(200,200);
-			 int x1 = 0;
-			 int y1 = 0;
-			 int x2;
-			 int y2;
-			 for (int i = 0; i < nPoints; i++) 
-			 {
-				 x2 = (int)Math.pow(i, 2);
-				 y2 = (int)Math.pow(i, 3);
-				 g2.drawLine(x1, y1, x2, y2);
-				 x1 = x2;
-				 y1 = y2;
-			 }
+			 g2.translate(100,100);
+			 GeneralPath path = new GeneralPath();
+			 Arc2D.Double arc1 = new Arc2D.Double(0, 0, 75, 100, 90, 180, Arc2D.OPEN); 
+			 Arc2D.Double arc2 = new Arc2D.Double(-25, 0, 125, 100, 90, 180, Arc2D.OPEN); 
+			 path.append(arc1, false);
+			 path.append(arc2, false);
+			 path.setWindingRule(GeneralPath.WIND_EVEN_ODD);
+			 g2.fill(path);
 		 }
 	}
 }

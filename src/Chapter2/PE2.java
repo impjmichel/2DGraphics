@@ -31,7 +31,7 @@ public class PE2 extends JFrame
 	class DrawStuff extends JPanel
 	{
 		private static final long serialVersionUID = -8897760414214464286L;
-		int nPoints = 1000;
+		int nPoints = 720;
 
 		public DrawStuff()
 		{
@@ -49,7 +49,7 @@ public class PE2 extends JFrame
 			 int y2;
 			 for (int i = 0; i < nPoints; i++) 
 			 {
-				 double t = i * Math.PI / 90;
+				 double t = i * Math.PI / 180;
 				 x2 = (int) ((int) 20*t*Math.cos(t));
 				 y2 = (int) ((int) 20*t*Math.sin(t));
 				 g2.drawLine(x1, y1, x2, y2);
