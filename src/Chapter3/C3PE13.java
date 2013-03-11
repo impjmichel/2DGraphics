@@ -2,31 +2,37 @@ package Chapter3;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class C3PE10 extends JFrame
+public class C3PE13 extends JFrame
 {
-	private String[] s = {"J","a","v","a","G","r","a","p","h","i","c","s"};
+	private BufferedImage img = null;
 	
 	public static void main(String[] arg)
 	{
-		JFrame frame = new C3PE10();
+		JFrame frame = new C3PE13();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+	    frame.setSize(new Dimension(600,600));
 	    frame.pack();
 	    frame.setVisible(true);
 	}
 	
-	public C3PE10()
+	public C3PE13()
 	{
-		super("Programming Exercise 3.10");
+		super("Programming Exercise 3.13");
 		JPanel contentPanel = new JPanel(new FlowLayout());
 		
+		try {
+			img = ImageIO.read(getClass().getResource("/texture.jpg"));
+			} catch (IOException e) { e.printStackTrace(); } 
 		
 		JPanel panel = new DrawIt();
 		panel.setPreferredSize(new Dimension(600,600));
@@ -41,15 +47,10 @@ public class C3PE10 extends JFrame
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
 			g2.translate(300, 300);
-			
-			Font font = new Font("Serif", Font.BOLD, 36);
-			g2.setFont(font);
-			for(int id = 0; id < s.length; id++)
-			{
-				double rotate = (2*Math.PI)/13;
-				g2.setFont(g2.getFont().deriveFont(AffineTransform.getRotateInstance(rotate*-id)));
-				g2.drawString(s[id], (int) (Math.cos(rotate*-id-1.5*Math.PI)*100), (int) (Math.sin(rotate*id-1.5*Math.PI)*100));
-			}
+			Ellipse2D ellipse = new Ellipse2D.Double(-150, -50, 300, 100);
+			g2.setClip(ellipse);
+			g2.draw(ellipse);
+			g2.drawImage(img, -200, -200, null);
 		}
 	}
 }

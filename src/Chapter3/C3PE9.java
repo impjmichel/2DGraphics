@@ -5,8 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JFrame;
@@ -42,22 +42,18 @@ public class C3PE9 extends JFrame
 			Graphics2D g2 = (Graphics2D)g;
 			
 			g2.drawLine(0, 0, 500, 1000);
-			Rectangle2D rect = new Rectangle2D.Double(0,100,100,50);
+			
+			Shape rect = null;
+			Shape rect2 = null;
+			rect = new Rectangle2D.Double(0,100,100,50);
 			g2.setColor(Color.BLUE);
 			g2.draw(rect);
-			g2.setColor(Color.RED);
-			
-			/*
-			 * line l : y = 2x  ( 1 , 2 )
-			 * 
-			 *  1/(x*x+y*y)  *  1*1-2*2 , 2*1*2 , 2*1*2 , 2*2-1*1
-			 * 
-			 * ( (1/5)*-3, (1/5)*4, 0
-			 *   (1/5)*4, (1/5)*3, 0 )
-			 */
-			
-			g2.setTransform(new AffineTransform(0,1,1,0, 5, 5));
-			g2.draw(rect);
+			g2.setColor(Color.RED);	
+//			int k = 2;
+			AffineTransform tr = new AffineTransform();
+			tr.setTransform(-0.6,0.8,0.8,0.6,0,0); //(2/(1+k*k))-1, (2*k)/(1+k*k), (2*k)/(1+k*k), ((2*k*k)/(1+k*k))-1, 0, 0);
+			rect2 = tr.createTransformedShape(rect);
+			g2.draw(rect2);
 		}
 	}
 }

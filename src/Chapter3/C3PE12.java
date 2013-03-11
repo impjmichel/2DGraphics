@@ -5,29 +5,29 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class C3PE10 extends JFrame
+public class C3PE12 extends JFrame
 {
-	private String[] s = {"J","a","v","a","G","r","a","p","h","i","c","s"};
 	
 	public static void main(String[] arg)
 	{
-		JFrame frame = new C3PE10();
+		JFrame frame = new C3PE12();
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+	    frame.setSize(new Dimension(600,600));
 	    frame.pack();
 	    frame.setVisible(true);
 	}
 	
-	public C3PE10()
+	public C3PE12()
 	{
-		super("Programming Exercise 3.10");
+		super("Programming Exercise 3.12");
 		JPanel contentPanel = new JPanel(new FlowLayout());
-		
-		
 		JPanel panel = new DrawIt();
 		panel.setPreferredSize(new Dimension(600,600));
 		contentPanel.add(panel);
@@ -40,16 +40,21 @@ public class C3PE10 extends JFrame
 		{
 			super.paintComponent(g);
 			Graphics2D g2 = (Graphics2D)g;
-			g2.translate(300, 300);
 			
-			Font font = new Font("Serif", Font.BOLD, 36);
+			g2.translate(200, 200);
+			
+			GeneralPath clipper = new GeneralPath();
+			Rectangle2D rect = new Rectangle2D.Double(0,-50,100,100);
+			Ellipse2D circle = new Ellipse2D.Double(25, -25, 50, 50);
+			clipper.append(rect, false);
+			clipper.append(circle, false);
+			clipper.setWindingRule(GeneralPath.WIND_EVEN_ODD);
+			g2.setClip(clipper);
+			g2.draw(clipper);
+			Font font = new Font("Serif", Font.BOLD, 30);
 			g2.setFont(font);
-			for(int id = 0; id < s.length; id++)
-			{
-				double rotate = (2*Math.PI)/13;
-				g2.setFont(g2.getFont().deriveFont(AffineTransform.getRotateInstance(rotate*-id)));
-				g2.drawString(s[id], (int) (Math.cos(rotate*-id-1.5*Math.PI)*100), (int) (Math.sin(rotate*id-1.5*Math.PI)*100));
-			}
+			g2.drawString("Java 2D", 0, 0);
+			
 		}
 	}
 }
